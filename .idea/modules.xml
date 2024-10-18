@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/SOEN-342-PROJECT-TEAM-42.iml" filepath="$PROJECT_DIR$/.idea/SOEN-342-PROJECT-TEAM-42.iml" />
+      <module fileurl="file://$PROJECT_DIR$/iteration one/iteration one.iml" filepath="$PROJECT_DIR$/iteration one/iteration one.iml" />
     </modules>
   </component>
 </project>
