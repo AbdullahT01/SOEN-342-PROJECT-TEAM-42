@@ -19,7 +19,7 @@ Instructor: Views and selects offerings to teach.
 
 Public User: Views offerings.
 
-- Deliverables
+- Deliverables (Implementations --> iteration one || Diagrams --> UML Diagrams)
 
 UML Domain Model [+ Package Diagram]
 Represents the structure of the system, including classes like Instructor, Offering, Location, Schedule, and Administrator.
