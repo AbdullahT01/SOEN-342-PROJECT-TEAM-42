@@ -1,3 +1,8 @@
+Mostafa Mohamed 40201893
+Abdullah 
+Urgent for TA: Sorry for adding you late because we added wrong TA.
+___________________________________________________________________________________________________________________________________________________________
+
 Project Iteration: Use Case 1 - Process Offerings
 Overview
 This iteration focuses on Use Case 1: Process Offerings, involving two main actors: Administrator and Instructor. The Administrator creates and makes offerings (e.g., classes) available, while Instructors can select these offerings to teach. Public Users can view available offerings but cannot book or manage them.
