@@ -5,6 +5,7 @@ public class Offering {
     private Location location;
     private Schedule schedule;
     private Instructor instructor;
+    private boolean isAvailable;
 
     public Offering(int id, String type, String mode, Location location, Schedule schedule) {
         this.id = id;
@@ -17,6 +18,14 @@ public class Offering {
 
     public boolean isAvailable() {
         return instructor == null;
+    }
+
+    public void markAsBooked() {
+        this.isAvailable = false;
+    }
+
+    public void markAsAvailable() {
+        this.isAvailable = true;
     }
 
     public void assignInstructor(Instructor instructor) {
