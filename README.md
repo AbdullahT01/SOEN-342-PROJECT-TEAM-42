@@ -63,7 +63,9 @@ Run Main.java to see how the Administrator creates an offering and how an Instru
 Output will indicate whether the selection was successful.
 
 ## Summary
+
 This iteration delivers the design and implementation of the Process Offerings use case, providing a clear flow for creating and selecting offerings. The project includes well-structured diagrams and a Java implementation, aligning with the requirements.
+
 ----------------------------------------------------------------------------------------------------
 
 # Iteration Four 
