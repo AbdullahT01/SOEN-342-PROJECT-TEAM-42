@@ -64,4 +64,25 @@ Output will indicate whether the selection was successful.
 
 ## Summary
 This iteration delivers the design and implementation of the Process Offerings use case, providing a clear flow for creating and selecting offerings. The project includes well-structured diagrams and a Java implementation, aligning with the requirements.
+----------------------------------------------------------------------------------------------------
+
+# Iteration Four 
+
+####Rational Data Model 
+
+![Relational data model](https://github.com/user-attachments/assets/285ca1c8-5055-4ed9-a927-2ade56627da2)
+
+
+This relational data model illustrates the structure of our lesson booking system. Each entity represents a key component, including Location, Lesson, Schedule, Client, Booking, Instructor, and InstructorAvailability. Relationships between entities are defined to ensure data integrity and streamline the booking process.
+
+- **Location** holds details about where lessons are conducted.
+- **Lesson** captures information about different types of lessons, their modes, and durations.
+- **Schedule** links specific lessons to locations and times.
+- **Client** contains client information, including age and guardian details when needed.
+- **Booking** records each client’s lesson booking, referencing both client and schedule.
+- **Instructor** provides instructor data, while InstructorAvailability specifies the locations where each instructor is available.
+
+This model ensures normalized data storage, effective querying, and adherence to business rules such as availability constraints and age-based requirements for guardian presence.
+
+
 
