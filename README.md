@@ -94,11 +94,17 @@ This model ensures normalized data storage, effective querying, and adherence to
 This domain model diagram represents the main parts of our lesson booking system and how they relate to each other:
 
 - **Location** represents where lessons take place.
+
 - **Lesson** contains the type, mode, and duration of each lesson.
+
 - **Schedule** links lessons with locations and specific times.
+
 - **Client** includes basic information about clients, like age and guardian info if needed.
+
 - **Booking** records which client has signed up for which schedule.
+
 - **Instructor** provides details about each instructor.
+
 - **InstructorAvailability** shows where each instructor is available.
 
 The relationships in this model help ensure that clients can book lessons, instructors are assigned to locations, and schedules are organized effectively.
@@ -113,13 +119,53 @@ The relationships in this model help ensure that clients can book lessons, instr
 This interaction diagram shows the steps involved when a client makes a booking in the system:
 
 1. **Client Request:** The client initiates a booking by sending their ID, the lesson offering, date, and time slot.
+
 2. **Age Check:** The system checks the client’s age to ensure they’re eligible. If the client is under 18, the system verifies that they have a guardian.
+
 3. **Guardian Check:** If the client is underage, the system confirms if a guardian exists for the client.
+
 4. **Booking Uniqueness:** The system checks if there is already a booking for the same date and time slot to avoid duplicate bookings.
+
 5. **Store Booking:** Once all conditions are met, the system stores the booking details in the database.
+
 6. **Confirmation:** The client receives a confirmation that their booking has been successfully processed.
 
 This process ensures that bookings are only made if all requirements are satisfied, including guardian verification for underage clients and avoiding duplicate bookings.
+
+### - Booking Process Sequence Diagram
+
+![System Sequence Diagram for Process Bookings](https://github.com/user-attachments/assets/76904b4d-f8c2-4ddc-871f-57004d798c07)
+
+
+This sequence diagram shows the steps for a client to register, view available offerings, and make a booking:
+
+1. **Client Registration:** The client registers by providing their name, age, and guardian details (if applicable). The system stores this information in the database and sends a confirmation to the client.
+
+2. **Viewing Offerings:** The client requests to view available offerings, and the system retrieves a list of offerings from the database.
+
+3. **Making a Booking:** The client selects an offering, date, and time slot to make a booking. The system:
+   - Checks if the client is underage and, if so, verifies the guardian's details.
+   - Confirms availability for the selected offering and time.
+   - Stores the booking details in the database if all requirements are met.
+
+4. **Booking Confirmation:** The client receives a booking confirmation once the process is successfully completed.
+
+### - Offering Process Sequence Diagram
+
+![System Sequence Diagram for Process Offerings](https://github.com/user-attachments/assets/99d0ae48-cba6-4a71-94f0-759be0151b1c)
+
+
+This sequence diagram illustrates how offerings are created, viewed, and selected:
+
+1. **Adding an Offering:** An administrator or instructor adds a new offering (lesson, location, schedule). The system stores this in the database and confirms the creation.
+
+2. **Viewing Offerings:** A user (administrator, instructor, or public) can view the list of available offerings.
+
+3. **Selecting an Offering:** A user selects an offering. The system checks if the offering is available:
+   - If available, the system updates the offering status to "selected" and sends confirmation.
+   - If unavailable, the system returns an error indicating the offering is not available.
+
+
 
 
 
