@@ -13,7 +13,7 @@ CREATE TABLE Instructor (
     Name VARCHAR(50) NOT NULL,
     Phone VARCHAR(15) NOT NULL,
     Specialization VARCHAR(50) NOT NULL,
-    Availability BOOLEAN DEFAULT TRUE
+   Availability TEXT DEFAULT ''
 );
 
 -- Table for storing locations
