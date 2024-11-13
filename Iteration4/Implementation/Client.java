@@ -85,11 +85,20 @@ public class Client {
         return bookings.contains(booking) ? booking : null;
     }
 
-    private boolean hasLegalGuardian() {
-        
-        return age < 18 && hasGuardian;
+    public boolean isRegistered() {
+        return this.registered;
     }
-
-   
-
+    
+    public void setRegistered(boolean registered) {
+        this.registered = registered;
+    }
+    
+    public boolean hasLegalGuardian() {
+        return this.hasGuardian;
+    }
+    
+    public void setHasGuardian(boolean hasGuardian) {
+        this.hasGuardian = hasGuardian;
+    }
+    
 }
