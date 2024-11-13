@@ -57,4 +57,10 @@ public class Instructor {
         }
         return false;
     }
+
+    public String getAvailabilityAsString() {
+        // Join the list elements with commas
+        return String.join(",", availability);
+    }
+    
 }
