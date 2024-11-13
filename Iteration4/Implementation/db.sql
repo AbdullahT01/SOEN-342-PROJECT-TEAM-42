@@ -3,7 +3,8 @@ CREATE TABLE Client (
     ClientID SERIAL PRIMARY KEY,
     Name VARCHAR(50) NOT NULL,
     Age INT NOT NULL,
-    HasGuardian BOOLEAN NOT NULL
+    HasGuardian BOOLEAN NOT NULL,
+    Registered BOOLEAN DEFAULT FALSE
 );
 
 -- Table for storing instructors
@@ -11,7 +12,8 @@ CREATE TABLE Instructor (
     InstructorID SERIAL PRIMARY KEY,
     Name VARCHAR(50) NOT NULL,
     Phone VARCHAR(15) NOT NULL,
-    Specialization VARCHAR(50) NOT NULL
+    Specialization VARCHAR(50) NOT NULL,
+    Availability BOOLEAN DEFAULT TRUE
 );
 
 -- Table for storing locations
