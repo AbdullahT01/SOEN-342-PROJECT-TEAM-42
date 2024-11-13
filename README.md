@@ -166,6 +166,83 @@ This sequence diagram illustrates how offerings are created, viewed, and selecte
    - If unavailable, the system returns an error indicating the offering is not available.
 
 
+### - OCL Expressions
+
+1.	**Unique Offerings by Location and Time**
+
+
+context Schedule
+
+
+    inv UniqueOffering: Schedule.allInstances()->forAll(s1, s2 |
+
+    s1 <> s2 implies
+
+    (s1.date <> s2.date or s1.time_slot <> s2.time_slot or s1.location <> s2.location))
+
+
+2. **Guardian Requirement for Underage Clients**
+
+
+context Client
+
+    inv GuardianForUnderage: self.age >= 18 or self.guardian->notEmpty()
+
+
+3. **Instructor Availability by City**
+
+
+context Lesson
+
+
+    inv InstructorAvailability: self.instructor.availabilities->includes(self.location.city)
+
+
+
+4. **Single Booking per Client per Time Slot**
+
+
+context Booking
+
+
+    inv SingleBookingPerClient: Booking.allInstances()->forAll(b1, b2 |
+
+    b1 <> b2 implies
+
+    (b1.client = b2.client implies b1.date <> b2.date or b1.time_slot <> b2.time_slot))
+
+
+### - Operation Contracts
+
+1. **addOffering Operation Contract**
+
+  - Operation: addOffering(lesson, location, schedule)
+
+  - Pre-Condition:
+	    - The administrator is authenticated and authorized to add offerings.
+       - The specified location and schedule time slot are not already assigned to another offering.
+  - Post-Condition:
+       - A new offering is created and stored in the system.
+       - The offering is made available for viewing by clients and selection by instructors.
+
+2. **makeBooking Operation Contract**
+
+ - Operation: makeBooking(clientID, offeringID, date, timeSlot)
+ - Pre-Condition:
+ 	 - The client is registered in the system.
+	 - If the client’s age is below 18, a registered guardian is associated with the client.
+	 - The specified offering is available for booking on the given date and time slot.
+- Post-Condition:
+	- A new booking is created and stored in the system for the specified client.
+	- The selected offering is marked as unavailable for the specified date and time slot.
+	- The booking is visible to the client in their booking history or profile.
+
+
+
+
+
+
+
 
 
 
