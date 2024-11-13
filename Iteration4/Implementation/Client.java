@@ -57,7 +57,7 @@ public class Client {
             throw new RuntimeException("Booking not allowed: Offering unavailable.");
         }
     }
-
+    
     // added the overloading to make it work with guardian class
     public Booking makeBooking(Offering offering) {
         
