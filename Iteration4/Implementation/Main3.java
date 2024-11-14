@@ -72,5 +72,43 @@ public class Main3 {
         //clientRepo.deleteClient(client);
 
         System.out.println("Client operations complete.");
+        System.out.println("////////////////////////////////////////////////////////////////////////////////////////////////");
+
+
+// Testing Schedule Repository Operations
+        ScheduleRepository scheduleRepo = new ScheduleRepository();
+
+// Adding a new schedule
+        Schedule newSchedule = new Schedule("Monday", "09:00", "11:00");
+        int scheduleId = scheduleRepo.addSchedule(newSchedule);
+        System.out.println("Schedule added successfully.");
+        System.out.println("Added Schedule ID: " + scheduleId);
+
+// Retrieve schedule by ID
+        Schedule retrievedSchedule = scheduleRepo.getScheduleById(scheduleId);
+        if (retrievedSchedule != null) {
+            System.out.println("Schedule retrieved successfully.");
+            System.out.println("Day: " + retrievedSchedule.getDay());
+            System.out.println("Start Time: " + retrievedSchedule.getStartTime());
+            System.out.println("End Time: " + retrievedSchedule.getEndTime());
+        }
+
+// Update schedule information by schedule ID
+        Schedule updatedSchedule = new Schedule("Wednesday", "10:00", "12:00");
+        scheduleRepo.updateSchedule(scheduleId, updatedSchedule);
+        System.out.println("Schedule updated successfully.");
+
+// Retrieve the updated schedule by ID
+        retrievedSchedule = scheduleRepo.getScheduleById(scheduleId);
+        if (retrievedSchedule != null) {
+            System.out.println("Schedule retrieved successfully.");
+            System.out.println("Day: " + retrievedSchedule.getDay());
+            System.out.println("Start Time: " + retrievedSchedule.getStartTime());
+            System.out.println("End Time: " + retrievedSchedule.getEndTime());
+        }
+
+        System.out.println("Schedule operations complete.");
+        System.out.println("////////////////////////////////////////////////////////////////////////////////////////////////");
+
     }
 }
