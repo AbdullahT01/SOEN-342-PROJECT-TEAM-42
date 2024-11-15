@@ -62,5 +62,16 @@ public class Instructor {
         // Join the list elements with commas
         return String.join(",", availability);
     }
+
+    @Override
+public String toString() {
+    return "Instructor{" +
+           "name='" + name + '\'' +
+           ", phone='" + phone + '\'' +
+           ", specialization='" + specialization + '\'' +
+           ", availability=" + availability +
+           '}';
+}
+
     
 }

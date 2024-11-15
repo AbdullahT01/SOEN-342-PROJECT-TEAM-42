@@ -20,4 +20,14 @@ public class Schedule {
     public String getEndTime() {
         return endTime;
     }
+
+    @Override
+    public String toString() {
+    return "Schedule{" +
+           "day='" + day + '\'' +
+           ", startTime='" + startTime + '\'' +
+           ", endTime='" + endTime + '\'' +
+           '}';
+}
+
 }

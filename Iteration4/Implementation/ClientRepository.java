@@ -14,19 +14,33 @@ public class ClientRepository {
     }
 
     // Create: Add a new client to the database
-    public void addClient(Client client) {
+    public int addClient(Client client) {
         String sql = "INSERT INTO client (name, age, registered, hasGuardian) VALUES (?, ?, ?, ?)";
-        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = connect(); 
+             PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            
             pstmt.setString(1, client.getName());
             pstmt.setInt(2, client.getAge());
             pstmt.setBoolean(3, client.isRegistered());
             pstmt.setBoolean(4, client.hasLegalGuardian());
             
-            pstmt.executeUpdate();
-            System.out.println("Client added successfully.");
+            int affectedRows = pstmt.executeUpdate();
+            
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int clientId = generatedKeys.getInt(1);
+                        System.out.println("Client added successfully with ID: " + clientId);
+                        return clientId;
+                    }
+                }
+            } else {
+                System.out.println("Adding client failed, no rows affected.");
+            }
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
         }
+        return -1; // Return -1 if there was an error or no ID was generated
     }
 
 public Client getClientById(int clientId) {
@@ -55,6 +69,30 @@ public Client getClientById(int clientId) {
     }
 }
 
+ // Retrieve the client ID based on the client attributes
+ public Integer getClientId(Client client) {
+    String sql = "SELECT clientid FROM client WHERE name = ? AND age = ? AND registered = ? AND hasGuardian = ?";
+    
+    try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, client.getName());
+        pstmt.setInt(2, client.getAge());
+        pstmt.setBoolean(3, client.isRegistered());
+        pstmt.setBoolean(4, client.hasLegalGuardian());
+        
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            int clientId = rs.getInt("clientid");
+            System.out.println("Client ID retrieved successfully: " + clientId);
+            return clientId;
+        } else {
+            System.out.println("No client found matching the given criteria.");
+        }
+    } catch (SQLException e) {
+        System.out.println("Database error: " + e.getMessage());
+    }
+    
+    return null; // Return null if the client ID is not found
+}
 
     // Update: Update client information
     public void updateClient(int clientId, Client updatedClient) {

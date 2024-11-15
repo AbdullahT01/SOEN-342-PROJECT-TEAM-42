@@ -17,6 +17,14 @@ public class Client {
         this.hasGuardian = age < 18; 
     }
 
+    public Client(String name, int age, boolean registered, boolean hasGuardian) {
+        this.name = name;
+        this.age = age;
+        this.bookings = new ArrayList<>();
+        this.registered = registered;
+        this.hasGuardian = hasGuardian;
+    }
+
     public int getAge() {
         return age;
     }

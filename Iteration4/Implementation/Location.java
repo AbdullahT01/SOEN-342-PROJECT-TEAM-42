@@ -17,4 +17,21 @@ public class Location {
     public String getCity() {
         return city;
     }
+
+    public String getFacilityType() {
+        return facilityType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", facilityType='" + facilityType + '\'' +
+                '}';
+    }
 }

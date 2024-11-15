@@ -7,7 +7,7 @@ public class ScheduleRepository {
     private Connection connect() throws SQLException {
         String url = "jdbc:postgresql://localhost:5432/lesson_management_db";
         String user = "postgres";
-        String password = "root";
+        String password = "12345";
         return DriverManager.getConnection(url, user, password);
     }
 
@@ -15,13 +15,14 @@ public class ScheduleRepository {
         String sql = "INSERT INTO schedule (day, startTime, endTime) VALUES (?, ?, ?) RETURNING scheduleid";
         try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, schedule.getDay());
-
-            LocalTime startTime = LocalTime.parse(schedule.getStartTime(), DateTimeFormatter.ofPattern("HH:mm"));
-            LocalTime endTime = LocalTime.parse(schedule.getEndTime(), DateTimeFormatter.ofPattern("HH:mm"));
-
+    
+            // Adjust the DateTimeFormatter pattern to match "HH:mm:ss" format
+            LocalTime startTime = LocalTime.parse(schedule.getStartTime(), DateTimeFormatter.ofPattern("HH:mm:ss"));
+            LocalTime endTime = LocalTime.parse(schedule.getEndTime(), DateTimeFormatter.ofPattern("HH:mm:ss"));
+    
             pstmt.setTime(2, Time.valueOf(startTime));
             pstmt.setTime(3, Time.valueOf(endTime));
-
+    
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 int id = rs.getInt("scheduleid");
@@ -33,8 +34,32 @@ public class ScheduleRepository {
         }
         return -1; // Return -1 if insertion fails
     }
+    
+    
 
 
+    public Integer getScheduleId(Schedule schedule) {
+        String sql = "SELECT scheduleid FROM schedule WHERE day = ? AND startTime = ? AND endTime = ?";
+        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, schedule.getDay());
+            pstmt.setTime(2, Time.valueOf(schedule.getStartTime())); // Directly set as Time without parsing
+            pstmt.setTime(3, Time.valueOf(schedule.getEndTime())); // Directly set as Time without parsing
+    
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int scheduleId = rs.getInt("scheduleid");
+                System.out.println("Schedule ID retrieved successfully: " + scheduleId);
+                return scheduleId;
+            } else {
+                System.out.println("No schedule found matching the given details.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
+        return null;
+    }
+
+    
     public Schedule getScheduleById(int scheduleId) {
         String sql = "SELECT * FROM schedule WHERE scheduleid = ?";
         try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {

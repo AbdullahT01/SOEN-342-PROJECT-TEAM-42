@@ -12,6 +12,24 @@ public class Booking {
         this.status = "Confirmed";
     }
 
+    // Getters
+    public int getId() {
+        return id;
+    }
+
+    public Offering getOffering() {
+        return offering;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    // Methods to manage booking status
     public void confirmBooking() {
         this.status = "Confirmed";
     }
@@ -21,12 +39,11 @@ public class Booking {
         this.offering.setUnavailable(); // Make the offering available again
     }
 
-    public String getStatus() {
-        return status;
+    public void setStatus(String status){
+        this.status = status; 
     }
 
-
-     @Override
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
@@ -43,5 +60,4 @@ public class Booking {
                ", status=" + status +
                '}';
     }
-    
 }
