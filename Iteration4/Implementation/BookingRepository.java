@@ -1,6 +1,12 @@
 import java.sql.*;
 
 public class BookingRepository {
+    
+    //Creating instances for calling the methods later
+    private final LocationRepository locationRepo = new LocationRepository();
+    private final ScheduleRepository scheduleRepo = new ScheduleRepository();
+    private final InstructorRepository instructorRepo = new InstructorRepository();
+    ////////////////////////////////////////////////////////////
 
     private Connection connect() throws SQLException {
         String url = "jdbc:postgresql://localhost:5432/lesson_management_db";
@@ -114,11 +120,38 @@ public class BookingRepository {
     }
 
     // Helper method to retrieve Offering by ID (assuming a similar Offering structure)
-    private Offering getOfferingById(int offeringId) {
-        // This method would contain logic similar to getClientById, but for the Offering entity
-        // Placeholder code below, implement based on Offering structure in your database
-        // return new Offering(...);
-        return null; // Replace with actual implementation
+
+       private Offering getOfferingById(int offeringId) {
+        String sql = "SELECT * FROM offering WHERE offeringid = ?";
+
+        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, offeringId);
+
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                String type = rs.getString("type");
+                String mode = rs.getString("mode");
+                boolean available = rs.getBoolean("available");
+
+                // Assuming there are methods in the repositories to retrieve related entities
+                ///// Here we are using the instances I created in the start to call their respective methods.
+                Location location = locationRepo.getLocation(rs.getInt("locationid"));
+                Schedule schedule = scheduleRepo.getScheduleById(rs.getInt("scheduleid"));
+                Instructor instructor = instructorRepo.getInstructorById(rs.getInt("instructorid"));
+
+
+                if (location != null && schedule != null && instructor != null) {
+                    Offering offering = new Offering(offeringId, type, mode, location, schedule, instructor, available);
+                    System.out.println("Offering retrieved successfully with ID: " + offeringId);
+                    return offering;
+                } else {
+                    System.out.println("Failed to retrieve associated entities for the offering.");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
+        return null;
     }
 
     // Update booking status
